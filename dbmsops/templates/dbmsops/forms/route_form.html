@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Input Data</h5>
+    <form class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Route ID" aria-label="Route ID" required>
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Source Location" aria-label="Source Location" required>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Destination Location" aria-label="Destination Location" required>
+            </div>
+        </div>
+        <div class="row-auto mt-3">
+            <button type="submit" class="btn btn-primary">Insert</button>
+        </div>
+    </form>
+</div>
