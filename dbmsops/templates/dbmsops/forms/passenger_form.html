@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title mb-3">Input Data</h5>
+    <form action="">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Passenger ID" aria-label="Passenger ID">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+            </div>
+        </div>
+        <div class="row-auto mt-3">
+            <button type="submit" class="btn btn-primary">Insert</button>
+        </div>
+    </form>
+</div>
