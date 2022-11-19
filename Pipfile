@@ -8,6 +8,7 @@ requests = "*"
 django = "*"
 psycopg2 = "*"
 django-dotenv = "*"
+django-tables2 = "*"
 
 [dev-packages]
 
