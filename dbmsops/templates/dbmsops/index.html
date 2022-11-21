@@ -1,3 +1,4 @@
+{% load django_tables2 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +63,9 @@
       </div>
       <div class="row mt-3 mb-5">
         <div class="col">
-          {% load django_tables2 %}
-          {% render_table passenger_tb_rows %}
+          <div class="table-responsive">
+            {% render_table passenger_tb_rows %}
+          </div>
         </div>
       </div>
     </div>
@@ -71,7 +73,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script>
-      const listTags = document.querySelector('.pagination').children;
+      const ulPagination = document.querySelector('.pagination'); 
+      ulPagination.classList.add('justify-content-center');
+      ulPagination.classList.add('pagination-sm');
+      const listTags = ulPagination.children;
       for(let i=0; i<listTags.length; i++){
         listTags[i].classList.add('page-item');
         listTags[i].children[0].classList.add('page-link')

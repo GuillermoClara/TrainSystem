@@ -1,4 +1,5 @@
 {% load static %}
+{% load django_tables2 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,12 +21,14 @@
                 <h3>Reports</h3><hr>
             </div>
             <div class="row">
-                <div class="card">
+                {% for obj in members_and_queries %}
+                <div class="card mb-3">
                     <div class="card-body">
-                      <h5 class="card-title">Mr. A: Query 1</h5>
-                      <p>This is some text within a card body.</p>
+                      <h5 class="card-title"> Member {{ forloop.counter }}: {{ obj.member_name }}</h5>
+                      <a href="/reports/details/{{ forloop.counter }}" class="btn btn-primary">Open report</a>
                     </div>
-                  </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
