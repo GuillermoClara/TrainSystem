@@ -1,3 +1,4 @@
+{% load django_tables2 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,47 +10,91 @@
 </head>
 <body>
     {% include "dbmsops/navbar.html" %}
-    <div class="container text-center mt-5">
-        <div class="row align-items-center">
-          <div class="col-5 align-items-center">
-            <div class="row">
-                <label for="table-selection" class="mb-2">Select a table</label>
-                <select id="table-selection" class="form-select" aria-label="Select database table name">
-                  {% for id, tb_details in db_tables.items %}
-                    <option value={{ forloop.counter }}>{{ tb_details.tb_name }}</option>
-                  {% endfor %}
-                </select>
-            </div>
-            <div class="row justify-content-center mt-5">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">Table Schema</h5>
-                  {% for id, tb_details in db_tables.items %}
-                    <p id="table-schema">{{ tb_details.tb_name }}{{ tb_details.tb_schema }}</p>
-                  {% endfor %}
-                </div>
+    <div class="container-sm mt-5 ps-5 pe-5 p-lg-0">
+      <div class="row mb-3">
+        <h3>Insert Data</h3><hr>
+      </div>
+      <div class="row align-items-center text-center justify-content-md-center gx-5">
+        <div class="col-lg-5 col-md-12 align-items-center mb-3">
+          <div class="row">
+              <label for="table-selection"><h5>Select a Table</h5></label>
+              <select id="table-selection" class="form-select" aria-label="Select database table name">
+                {% for id, tb_details in db_tables.items %}
+                  <option value={{ forloop.counter }}>{{ tb_details.tb_name }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          <div class="row justify-content-center mt-3">
+            <div class="card">
+              <div class="card-body" id="table-schema">
+                <h5 class="card-title mb-4">Table Schema</h5>
+                  <p>Passenger(PassengerID, lastName, firstName)</p>
               </div>
             </div>
           </div>
-          <div class="col-7" id="insert-data-entry-form">
-            {% include "dbmsops/forms/passenger_form.html"%}
+        </div>
+        <div class="col-lg-7 col-md-auto align-items-center" id="insert-data-entry-form">
+          
+          <div class="row">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title mb-3">Input Data</h5>
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <div class="row">
+                      <div class="col-lg-4 col-sm-12 mb-3">
+                        <input type="text" name="passengerID" class="form-control" placeholder="Passenger ID" aria-label="Passenger ID">
+                      </div>
+                      <div class="col-lg-4 col-sm-12 mb-3">
+                        <input type="text" name="firstName" class="form-control" placeholder="First name" aria-label="First name">
+                      </div>
+                      <div class="col-lg-4 col-sm-12 mb-3">
+                          <input type="text" name="lastName" class="form-control" placeholder="Last name" aria-label="Last name">
+                      </div>
+                  </div>
+                  <div class="row-auto mt-3">
+                      <button type="submit" class="btn btn-primary">Insert</button>
+                  </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row mt-3 mb-5">
+        <div class="col">
+          <div class="table-responsive">
+            {% render_table passenger_tb_rows %}
           </div>
         </div>
       </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script>
+      const ulPagination = document.querySelector('.pagination'); 
+      ulPagination.classList.add('justify-content-center');
+      ulPagination.classList.add('pagination-sm');
+      const listTags = ulPagination.children;
+      for(let i=0; i<listTags.length; i++){
+        listTags[i].classList.add('page-item');
+        listTags[i].children[0].classList.add('page-link')
+      }
       $("#table-selection").change(function () {
         const url = '/ajax/load-data-entry-form/';  
-        const dboption = $(this).val();
+        const tbOption = $(this).val();
         $.ajax({                      
           url: url,                    
           data: {
-            'dboption': dboption       
+            'tb_option': tbOption       
           },
-          success: function (data) {  
-            $("#insert-data-entry-form").html(data);  
+          success: function (data) {
+            const arr = data.split('<break/>');
+            const schema = '<h5 class="card-title mb-4">Table Schema</h5>' + arr[0];
+            const form = arr[1];
+            $("#insert-data-entry-form").html(form);  
+            $("#table-schema").html(schema);
           }
         });
       });
