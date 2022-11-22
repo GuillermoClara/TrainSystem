@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Train(models.Model):
     class Meta:
         db_table = 'train'
