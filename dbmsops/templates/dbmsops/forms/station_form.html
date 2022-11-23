@@ -1,5 +1,30 @@
 <p> {{ tb_schema }}</p>
 <break/>
+{% load static %}
 <div class="row">
-    <h1>Stations</h1>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Input Data</h5>
+        <form class="needs-validation" action="/" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom01">Station name</label>
+                    <input type="text" class="form-control"
+                        name="Station_stationName" required>   
+                    <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                      Please provide a valid stop index
+                    </div>
+                </div>
+
+            </div>
+            <div class="row-auto mt-3">
+                <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+            </div>
+        </form>
+    </div>
 </div>

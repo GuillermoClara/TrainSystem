@@ -1,0 +1,65 @@
+<p> {{ tb_schema }}</p>
+<break/>
+{% load static %}
+<div class="row">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-3">Input Data</h5>
+        <form class="needs-validation" action="/" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom01">Stop Index</label>
+                    <input type="number" class="form-control"
+                        name="Stop_stopIndex" max="100" min="1" step="1" required>   
+                    <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                      Please provide a valid stop index
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom02">Arrival Time</label>
+                    <input type="datetime-local" class="form-control"
+                    name="Stop_stopArrivalTime" value="2018-06-12T19:30"
+                    min="2018-06-07T00:00" max="2018-06-14T00:00" required>              
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid arrival time
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom03">Departure Time</label>
+                    <input type="datetime-local" class="form-control"
+                    name="Stop_stopDepartureTime" value="2018-06-12T19:30"
+                    min="2018-06-07T00:00" max="2018-06-14T00:00" required>              
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid departure time
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom04">Station ID</label>
+                    <input type="number" class="form-control"
+                        name="Stop_stopStationID" max="100" min="1" step="1" required>   
+                    <div id="validationCustom04" class="form-text">Should be inclusive of 1-100</div>           
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                      Please provide a valid station ID
+                    </div>
+                </div>
+            </div>
+            <div class="row-auto mt-3">
+                <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+            </div>
+        </form>
+    </div>
+</div>

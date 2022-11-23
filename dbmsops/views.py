@@ -3,13 +3,14 @@ from dbmsops.models import Passenger
 from .tables import PassengerTable, PassengerTable2
 
 db_tables = {
-    "1": {"tb_name": "Passenger", "tb_fields":"(PassengerID, lastName, firstName)"},
-    "2": {"tb_name": "Route",  "tb_fields":"(RouteID, Source, destination)"},
-    "3": {"tb_name": "Stops","tb_fields":"(stationName, StationID, positionsOfOrder)"},
-    "4": {"tb_name": "Station","tb_fields":"(RouteID, Source, destination)"},
-    "5": {"tb_name": "Trip","tb_fields":"(tripID,depatureTime, arrivalTime, date)"},
-    "6": {"tb_name": "Train","tb_fields":"(trainID,model,year)"},
-    "7": {"tb_name": "Personnel","tb_fields":"(DoB, lastname, firstName, personellD)"}
+    "1": {"tb_name": "Passenger", "tb_fields":"(ID, firstName, lastName, DoB)"},
+    "2": {"tb_name": "Ticket",  "tb_fields":"(ID, expirationDate, fare, isValid)"},
+    "3": {"tb_name": "Stop","tb_fields":"(stopID, stopIndex, arrivalTime, departTime, stationID)"},
+    "4": {"tb_name": "Station","tb_fields":"(ID, stationName, addressID)"},
+    "5": {"tb_name": "Trip","tb_fields":"(ID, distance, duration)"},
+    "6": {"tb_name": "Train","tb_fields":"(ID, model, year, type)"},
+    "7": {"tb_name": "Personnel","tb_fields":"(ID, firstName, lastname, DoB)"},
+    "8": {"tb_name": "Address","tb_fields":"(ID, streetAddress, country, state, city, zip)"}
 }
 
 members_and_queries = [
@@ -22,9 +23,11 @@ def index(request):
     table = PassengerTable(Passenger.objects.all())
     table.paginate(page=request.GET.get("page", 1), per_page=2)
     if request.method == 'POST':
-        print(request.POST['passengerID'])
-        print(request.POST['firstName'])
-        print(request.POST['lastName'])
+        query_set = request.POST
+        for key in query_set:
+            if key != 'csrfmiddlewaretoken':
+                # pass
+                print(query_set[key])
     return render(request, 'dbmsops/index.html', {'db_tables': db_tables, 'passenger_tb_rows':table})
 
 def reports(request):
