@@ -40,11 +40,9 @@ class PassengerAddress(models.Model):
     zip = models.CharField(max_length=10)
 
 
-# DONE
 class Station(models.Model):
     class Meta:
         db_table = "station"
-    address_id = models.ForeignKey(Address, on_delete=models.CASCADE)
     station_name = models.CharField(max_length=100)
 
 
@@ -58,6 +56,9 @@ class StationAddress(models.Model):
     state = models.CharField(max_length=20)
     city = models.CharField(max_length=20)
     zip = models.CharField(max_length=10)
+
+# DONE
+
 
 
 # DONE
