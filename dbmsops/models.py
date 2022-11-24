@@ -20,17 +20,6 @@ class Personnel(models.Model):
 
 
 # DONE
-class Address(models.Model):
-    class Meta:
-        db_table = 'address'
-    street = models.CharField(max_length=100)
-    country = models.CharField(max_length=50)
-    state = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
-    zip = models.CharField(max_length=5)
-
-
-# DONE
 class Passenger(models.Model):
     class Meta:
         db_table = 'passenger'
