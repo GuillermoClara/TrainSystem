@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from dbmsops.models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, Address 
-from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, AddressTable, PassengerTable2
+from dbmsops.models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress
+from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, PassengerTable2
 from django_tables2 import RequestConfig
 
 db_tables = [
@@ -11,7 +11,8 @@ db_tables = [
     {'tb_name': 'Trip','tb_fields':'(ID, distance, duration)', 'tb_data': TripTable(Trip.objects.all())},
     {'tb_name': 'Train','tb_fields':'(ID, model, year, type)', 'tb_data': TrainTable(Train.objects.all())},
     {'tb_name': 'Personnel','tb_fields':'(ID, firstName, lastname, DoB)', 'tb_data': PersonnelTable(Personnel.objects.all())},
-    {'tb_name': 'Address','tb_fields':'(ID, streetAddress, country, state, city, zip)', 'tb_data': AddressTable(Address.objects.all())}
+    {'tb_name': 'PassengerAddress','tb_fields':'(ID, streetAddress, country, state, city, zip)', 'tb_data': PassengerAddressTable(PassengerAddress.objects.all())},
+    {'tb_name': 'StationAddress','tb_fields':'(ID, streetAddress, country, state, city, zip)', 'tb_data': StationAddressTable(StationAddress.objects.all())}
 ]
 
 members_and_queries = [
