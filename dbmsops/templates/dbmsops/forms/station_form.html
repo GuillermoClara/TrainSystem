@@ -1,30 +1,35 @@
-<p> {{ tb_schema }}</p>
-<break/>
-{% load static %}
-<div class="row">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-3">Input Data</h5>
-        <form class="needs-validation" action="/" method="post" novalidate>
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-lg-4 col-sm-12 mb-3">
-                    <label for="validationCustom01">Station name</label>
-                    <input type="text" class="form-control"
-                        name="Station_stationName" required>   
-                    <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                      Please provide a valid stop index
-                    </div>
+<div class="card">
+    <div class="card-body">
+    <h5 class="card-title mb-3">Input Data</h5>
+    <form class="needs-validation" action="/table/station" method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6 col-sm-12 mb-3">
+                <label for="validationCustom01">Station name</label>
+                <input type="text" class="form-control"
+                    name="Station_stationName" required>   
+                <div class="valid-feedback">
+                    Looks good!
                 </div>
-
+                <div class="invalid-feedback">
+                    Please provide a valid station name
+                </div>
             </div>
-            <div class="row-auto mt-3">
-                <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+            <div class="col-lg-6 col-sm-12 mb-3">
+                <label for="validationCustom02">Address ID</label>
+                <input type="number" class="form-control"
+                    max="100" min="1" name="Station_addressID" required>   
+                <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid address id
+                </div>
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="row-auto mt-3">
+            <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+        </div>
+    </form>
 </div>

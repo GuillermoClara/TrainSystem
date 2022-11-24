@@ -1,3 +1,44 @@
-<p> {{ tb_schema }}</p>
-<break/>
-{% include 'dbmsops/forms/passenger_form_form.html' %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Input Data</h5>
+        <form class="needs-validation" action="table/passenger" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom01">First name</label>
+                <input type="text" class="form-control" name="Passenger_firstName" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a first name
+                </div>            
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label>Last name</label>
+                <input type="text" class="form-control" name="Passenger_lastName" required>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a last name
+                </div>   
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom03">Date of Birth</label>
+                <input type="date" name="Passenger_DOB" class="form-control" 
+                    min="1922-01-01" max="2006-12-30" aria-label="Date of Birth" required>                
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a date of birth
+                </div>   
+            </div>
+            </div>
+            <div class="row-auto mt-3">
+                <button type="submit" class="btn btn-primary" onclick="validateForm()" >Insert</button>
+            </div>
+        </form>
+    </div>
+</div>
