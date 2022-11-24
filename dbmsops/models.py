@@ -57,9 +57,6 @@ class StationAddress(models.Model):
     city = models.CharField(max_length=20)
     zip = models.CharField(max_length=10)
 
-# DONE
-
-
 
 # DONE
 class Trip(models.Model):
@@ -90,6 +87,7 @@ class Ticket(models.Model):
     purchase_date = models.DateField()
     expiration_date = models.DateField()
     is_valid = models.BooleanField()
+    trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
     fare = models.FloatField(default=0.0)
 
 
