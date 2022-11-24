@@ -5,10 +5,33 @@
             {% csrf_token %}
             <div class="row">
                 <div class="col-lg-6 col-sm-12 mb-3">
-                    <label for="validationCustom01">Distance(in miles)</label>
+                    <label for="validationCustom01">Train ID</label>
+                    <input type="number" class="form-control"
+                        name="Trip_trainID" min="1" max="100" required>  
+                    <div id="validationCustom01" class="form-text">Should be inclusive of 1-100</div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid train ID
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom02">Date</label>
+                    <input type="date" name="Trip_date" class="form-control" 
+                        min="2022-11-24" max="2022-12-12" aria-label="Date" required>                
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid date
+                    </div>   
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom03">Distance(in miles)</label>
                     <input type="number" class="form-control"
                         name="Trip_distance" min="1" max="1500" required>  
-                    <div id="validationCustom01" class="form-text">Should be inclusive of 1-1500</div>
+                    <div id="validationCustom03" class="form-text">Should be inclusive of 1-1500</div>
                     <div class="valid-feedback">
                         Looks good!
                     </div>
@@ -17,10 +40,10 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-sm-12 mb-3">
-                    <label for="validationCustom02">Duration(in mins)</label>
+                    <label for="validationCustom03">Duration(in mins)</label>
                     <input type="number" class="form-control"
                         name="Trip_duration" min="1" max="1440" required>  
-                    <div id="validationCustom02" class="form-text">Should be inclusive of 1-1440</div>
+                    <div id="validationCustom03" class="form-text">Should be inclusive of 1-1440</div>
                     <div class="valid-feedback">
                         Looks good!
                     </div>

@@ -17,7 +17,19 @@
             </div>
           </div>
           <div class="col-lg-4 col-sm-12 mb-3">
-            <label for="validationCustom02">Purchase Date</label>
+            <label for="validationCustom02">Trip ID</label>
+            <input type="number" name="Ticket_tripID" class="form-control"
+                min="1" max="100" step="1" aria-label="Trip ID" required>  
+            <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>              
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+              Please provide a trip ID
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 mb-3">
+            <label for="validationCustom03">Purchase Date</label>
             <input type="date" name="Ticket_purchaseDate" class="form-control" aria-label="Purchase Date" required>                
             <div class="valid-feedback">
                 Looks good!
@@ -27,7 +39,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-sm-12 mb-3">
-            <label for="validationCustom03">Expiration Date</label>
+            <label for="validationCustom04">Expiration Date</label>
             <input type="date" name="Ticket_expirationDate" class="form-control" aria-label="Expiration Date" required>                
             <div class="valid-feedback">
                 Looks good!
@@ -37,7 +49,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-sm-12 mb-3">
-            <label for="validationCustom04">isValid</label>
+            <label for="validationCustom05">isValid</label>
             <div class="card">
               <div class="card-body">
                 <div class="form-check">
@@ -56,7 +68,7 @@
                 </div>   
               </div>
             </div> 
-            <div id="validationCustom03" class="form-text">Select if a ticket is valid or not</div>         
+            <div id="validationCustom05" class="form-text">Select if a ticket is valid or not</div>         
             <div class="valid-feedback">
                 Looks good!
             </div>
@@ -65,10 +77,10 @@
             </div>
           </div>
           <div class="col-lg-4 col-sm-12 mb-3">
-            <label for="validationCustom02">Fare($)</label>
+            <label for="validationCustom06">Fare($)</label>
             <input type="number" step="0.01" max="400.00" min="2.00" class="form-control" 
               name="Ticket_fare" required>
-            <div id="validationCustom02" class="form-text">Should be inclusive of 2.00-150.00</div>
+            <div id="validationCustom06" class="form-text">Should be inclusive of 2.00-150.00</div>
             <div class="valid-feedback">
                 Looks good!
             </div>

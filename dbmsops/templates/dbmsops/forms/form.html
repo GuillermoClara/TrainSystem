@@ -58,6 +58,10 @@
                 {% include "dbmsops/forms/passenger_address_form.html" %}
             {% elif tb_name == 'stationaddress' %}
                 {% include "dbmsops/forms/station_address_form.html" %}
+            {% elif tb_name == 'workroster' %}
+                {% include "dbmsops/forms/workroster_form.html" %}
+            {% elif tb_name == 'scheduledon' %}
+                {% include "dbmsops/forms/scheduledon_form.html" %}
             {% else %}
             <div class="alert alert-danger" role="alert">
                 <h5>Something went wrong!</h5> 

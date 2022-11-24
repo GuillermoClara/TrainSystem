@@ -20,8 +20,8 @@
         <div class="col-lg-5 col-md-12 align-items-center mb-3">
           <div class="row">
             <div class="list-group">
-              {% for obj in db_tables %}
-                <a href="table/{{ obj.tb_name.lower }}" class="list-group-item list-group-item-action h5">{{forloop.counter}}. {{ obj.tb_name }}</a>
+              {% for k, v in db_tables.items %}
+                <a href="table/{{ k }}" class="list-group-item list-group-item-action h5">{{forloop.counter}}. {{ v.tb_name }}</a>
               {% endfor %}
             </div>
 

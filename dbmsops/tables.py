@@ -1,5 +1,5 @@
 import django_tables2 as tables
-from .models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress
+from .models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
 
 class PassengerTable(tables.Table):
     class Meta:
@@ -46,6 +46,16 @@ class StationAddressTable(tables.Table):
         model = StationAddress
         attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
 
+class WorkRosterTable(tables.Table):
+    class Meta:
+        model = WorkRoster
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class ScheduledOnTable(tables.Table):
+    class Meta:
+        model = ScheduledOn
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+        
 class PassengerTable2(tables.Table):
     class Meta:
         model = Passenger

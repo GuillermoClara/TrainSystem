@@ -44,6 +44,7 @@ class Station(models.Model):
     class Meta:
         db_table = "station"
     station_name = models.CharField(max_length=100)
+    built_year = models.IntegerField(default=2022)
 
 
 # DONE

@@ -5,19 +5,43 @@
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-4 col-sm-12 mb-3">
-                <label for="validationCustom01">Stop Index</label>
+                <label for="validationCustom01">Station ID</label>
                 <input type="number" class="form-control"
-                    name="Stop_stopIndex" max="100" min="1" step="1" required>   
+                    name="Stop_stationID" max="100" min="1" step="1" required>   
+                <div id="validationCustom01" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid station ID
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom02">Trip ID</label>
+                <input type="number" class="form-control"
+                    name="Stop_tripID" max="100" min="1" step="1" required>   
                 <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
                 <div class="valid-feedback">
                     Looks good!
                 </div>
                 <div class="invalid-feedback">
-                    Please provide a valid stop index
+                    Please provide a valid trip ID
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12 mb-3">
-                <label for="validationCustom02">Arrival Time</label>
+                <label for="validationCustom03">Route Index</label>
+                <input type="number" class="form-control"
+                    name="Stop_routeIndex" max="100" min="1" step="1" required>   
+                <div id="validationCustom03" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid route index
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom04">Arrival Time</label>
                 <input type="datetime-local" class="form-control"
                 name="Stop_stopArrivalTime" required>              
                 <div class="valid-feedback">
@@ -28,7 +52,7 @@
                 </div>
             </div>
             <div class="col-lg-4 col-sm-12 mb-3">
-                <label for="validationCustom03">Departure Time</label>
+                <label for="validationCustom05">Departure Time</label>
                 <input type="datetime-local" class="form-control"
                 name="Stop_stopDepartureTime" required>              
                 <div class="valid-feedback">
@@ -36,18 +60,6 @@
                 </div>
                 <div class="invalid-feedback">
                 Please provide a valid departure time
-                </div>
-            </div>
-            <div class="col-lg-4 col-sm-12 mb-3">
-                <label for="validationCustom04">Station ID</label>
-                <input type="number" class="form-control"
-                    name="Stop_stopStationID" max="100" min="1" step="1" required>   
-                <div id="validationCustom04" class="form-text">Should be inclusive of 1-100</div>           
-                <div class="valid-feedback">
-                    Looks good!
-                </div>
-                <div class="invalid-feedback">
-                    Please provide a valid station ID
                 </div>
             </div>
         </div>
