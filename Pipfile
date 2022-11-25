@@ -9,6 +9,7 @@ django = "*"
 psycopg2 = "*"
 django-dotenv = "*"
 django-tables2 = "*"
+gunicorn = "*"
 
 [dev-packages]
 
