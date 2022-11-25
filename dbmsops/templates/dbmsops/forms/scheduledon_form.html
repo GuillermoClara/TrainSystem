@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
     <h5 class="card-title mb-3">Input Data</h5>
-    <form class="needs-validation" action="/table/stationaddress" method="post" novalidate>
+    <form class="needs-validation" action="/table/scheduledon" method="post" novalidate>
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6 col-sm-12 mb-3">
@@ -30,7 +30,7 @@
             </div>
             <div class="col-lg-6 col-sm-12 mb-3">
                 <label for="validationCustom03">Date Time</label>
-                <input type="datetime" name="Scheduled_dateTime" class="form-control"
+                <input type="datetime-local" name="Scheduled_dateTime" class="form-control"
                     aria-label="Date Time" required>                
                 <div class="valid-feedback">
                     Looks good!

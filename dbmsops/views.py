@@ -5,7 +5,7 @@ from django_tables2 import RequestConfig
 
 db_tables = {
     'passenger': {'tb_name': 'Passenger', 'tb_fields':'(ID, firstName, lastName, DoB)', 'passengerTable': PassengerTable, 'passengerModel': Passenger},
-    'ticket': {'tb_name': 'Ticket',  'tb_fields':'(ID, passengerID, ticketID, purchaseDate, expirationDate, isValid, fare)', 'ticketTable':  TicketTable, 'ticketModel': Ticket},
+    'ticket': {'tb_name': 'Ticket',  'tb_fields':'(ID, passengerID, tripID, purchaseDate, expirationDate, isValid, fare)', 'ticketTable':  TicketTable, 'ticketModel': Ticket},
     'stop':{'tb_name': 'Stop','tb_fields':'(stopID, stationID, tripID, routeIndex, arrivalTime, departTime)', 'stopTable': StopTable, 'stopModel': Stop},
     'station':{'tb_name': 'Station','tb_fields':'(ID, stationName, builtYear)', 'stationTable': StationTable, 'stationModel': Station},
     'trip':{'tb_name': 'Trip','tb_fields':'(ID, trainID, date, distance, duration)', 'tripTable': TripTable, 'tripModel': Trip},
@@ -135,7 +135,7 @@ def form_validation_helper(query_set):
                 try:
                     existing_station = Station.objects.get(id=query_set['StationAddress_stationID'])
                     try:
-                        new_station_address = StationAddress(passenger_id=existing_station, street=query_set['StationAddress_street'], country=query_set['StationAddress_country'], state=query_set['StationAddress_state'], city=query_set['StationAddress_city'], zip=query_set['StationAddress_zip'])
+                        new_station_address = StationAddress(station=existing_station, street=query_set['StationAddress_street'], country=query_set['StationAddress_country'], state=query_set['StationAddress_state'], city=query_set['StationAddress_city'], zip=query_set['StationAddress_zip'])
                         new_station_address.save()
                     except Exception as err:
                         error = 'Error: ' + err
@@ -146,7 +146,7 @@ def form_validation_helper(query_set):
                     existing_personnel = Personnel.objects.get(id=query_set['WorkRoster_personnelID'])
                     existing_train = Train.objects.get(id=query_set['WorkRoster_trainID'])
                     try:
-                        new_workroster = WorkRoster(personnel_id=existing_personnel, train_id=existing_train, role=query_set['WorkRoster_role'])
+                        new_workroster = WorkRoster(personnel_id=existing_personnel, train_id=existing_train, role=query_set['WorkRoster_role'], work_date=query_set['WorkRoster_workDate'])
                         new_workroster.save()
                     except Exception as err:
                         error = 'Error: ' + err
