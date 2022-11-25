@@ -33,7 +33,7 @@ def report_details(request, report_number):
     tb_data = PassengerTable2(Passenger.objects.raw(members_and_queries[report_number-1]['query']))
       # enable sorting
     RequestConfig(request).configure(tb_data)
-    tb_data.paginate(page=request.GET.get('page', 1), per_page=2)
+    tb_data.paginate(page=request.GET.get('page', 1), per_page=10)
     return render(request, 'dbmsops/details.html', {'tb_data': tb_data, 'member_and_query': members_and_queries[report_number-1]})
 
 def data_entry_form(request, table_name):
@@ -41,14 +41,14 @@ def data_entry_form(request, table_name):
     tb_data = db_tables[table_name][table_name + 'Table'](db_tables[table_name][ table_name + 'Model'].objects.all())
     tb_schema = db_tables[table_name]['tb_name'] + db_tables[table_name]['tb_fields']
     RequestConfig(request).configure(tb_data)
-    tb_data.paginate(page=request.GET.get('page', 1), per_page=2)
+    tb_data.paginate(page=request.GET.get('page', 1), per_page=10)
     error = 'None'
     if request.method == 'POST':
         query_set = request.POST
         error = form_validation_helper(query_set)
         tb_data = db_tables[table_name][table_name +'Table'](db_tables[table_name][table_name + 'Model'].objects.all())
         RequestConfig(request).configure(tb_data)
-        tb_data.paginate(page=request.GET.get('page', 1), per_page=2)
+        tb_data.paginate(page=request.GET.get('page', 1), per_page=10)
 
     return render(request, 'dbmsops/forms/form.html', {'tb_schema': tb_schema, 'tb_data': tb_data,
        'tb_name': table_name, 'form_submission_error': error})
