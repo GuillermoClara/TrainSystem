@@ -11,7 +11,7 @@
 </head>
 <body>
     {% include "dbmsops/navbar.html" %}
-    <div class="container-sm mt-5 ps-3 pe-3 p-lg-0">
+    <div class="container-sm mt-5 ps-5 pe-5 p-lg-0">
         <div class="row mb-3">
             <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -54,8 +54,14 @@
                 {% include "dbmsops/forms/train_form.html" %}
             {% elif tb_name == 'personnel' %}
                 {% include "dbmsops/forms/personnel_form.html" %}
-            {% elif tb_name == 'address' %}
-                {% include "dbmsops/forms/address_form.html" %}
+            {% elif tb_name == 'passengeraddress' %}
+                {% include "dbmsops/forms/passenger_address_form.html" %}
+            {% elif tb_name == 'stationaddress' %}
+                {% include "dbmsops/forms/station_address_form.html" %}
+            {% elif tb_name == 'workroster' %}
+                {% include "dbmsops/forms/workroster_form.html" %}
+            {% elif tb_name == 'scheduledon' %}
+                {% include "dbmsops/forms/scheduledon_form.html" %}
             {% else %}
             <div class="alert alert-danger" role="alert">
                 <h5>Something went wrong!</h5> 
