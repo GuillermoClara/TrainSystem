@@ -31,7 +31,7 @@ class Passenger(models.Model):
 # DONE
 class PassengerAddress(models.Model):
     class Meta:
-        db_table = 'passengerAddress'
+        db_table = 'passenger_address'
     passenger_id = models.ForeignKey(Passenger, on_delete=models.CASCADE)
     street = models.CharField(max_length=150)
     country = models.CharField(max_length=150)
@@ -50,7 +50,7 @@ class Station(models.Model):
 # DONE
 class StationAddress(models.Model):
     class Meta:
-        db_table = 'stationAddress'
+        db_table = 'station_address'
     station = models.OneToOneField(Station, on_delete=models.CASCADE, primary_key=True)
     street = models.CharField(max_length=150)
     country = models.CharField(max_length=150)
@@ -96,7 +96,7 @@ class Ticket(models.Model):
 # DONE
 class ScheduledOn(models.Model):
     class Meta:
-        db_table = "scheduledOn"
+        db_table = "scheduled_on"
     station_id = models.ForeignKey(Station, on_delete=models.CASCADE)
     trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
     date = models.DateField()
@@ -106,7 +106,7 @@ class ScheduledOn(models.Model):
 # DONE
 class WorkRoster(models.Model):
     class Meta:
-        db_table = "workRoster"
+        db_table = "work_roster"
     personnel_id = models.ForeignKey(Personnel, on_delete=models.CASCADE)
     train_id = models.ForeignKey(Train, on_delete=models.CASCADE)
     role = models.CharField(max_length=50)

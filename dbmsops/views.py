@@ -49,11 +49,11 @@ members_and_queries = [
         """ },
      {'query_name': 'Find all the stations and number of trains sorted in descending order.', 
     'query': """ 
-        SELECT stat.station_name, COUNT(schon.id) as no_of_trains
-        FROM public."scheduledOn" as schon, Station stat 
-        WHERE schon.station_id_id = stat.id
-        GROUP BY stat.id
-        ORDER BY COUNT(schon.id) DESC;
+        SELECT Station.station_name, COUNT(so.id) as no_of_trains
+        FROM scheduled_on as so, Station 
+        WHERE so.station_id_id = Station.id
+        GROUP BY Station.id
+        ORDER BY COUNT(so.id) DESC;
         """ }
 ]
 
