@@ -24,7 +24,8 @@
                 {% for obj in members_and_queries %}
                 <div class="card mb-3">
                     <div class="card-body">
-                      <h5 class="card-title"> Member {{ forloop.counter }}: {{ obj.member_name }}</h5>
+                      <h5 class="card-title"> Query {{ forloop.counter }}</h5>
+                      <p class="card-text mb-4 lead"><strong>{{ obj.member_name }}</strong></p>
                       <a href="/reports/details/{{ forloop.counter }}" class="btn btn-primary">Open report</a>
                     </div>
                 </div>

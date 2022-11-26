@@ -1,5 +1,6 @@
 import django_tables2 as tables
 from .models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
+from dbmsops.customQueryModels import Query1Model, Query2Model
 
 class PassengerTable(tables.Table):
     class Meta:
@@ -60,4 +61,18 @@ class PassengerTable2(tables.Table):
     class Meta:
         model = Passenger
         fields = ("id","first_name",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+# Reports query tables #
+
+class Query1Table(tables.Table):
+    class Meta:
+        model = Query2Model
+        fields = ("passenger_id",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query2Table(tables.Table):
+    class Meta:
+        model = Query2Model
+        fields = ("first_name", "last_name", "amount",)
         attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}

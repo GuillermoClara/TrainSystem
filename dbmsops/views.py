@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from dbmsops.models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
-from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, PassengerTable2
+from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, Query1Table, Query2Table
+from dbmsops.customQueryModels import Query1Model, Query2Model
 from django_tables2 import RequestConfig
+from django.db import connection
 
 db_tables = {
     'passenger': {'tb_name': 'Passenger', 'tb_fields':'(ID, firstName, lastName, DoB)', 'passengerTable': PassengerTable, 'passengerModel': Passenger},
@@ -18,8 +20,23 @@ db_tables = {
 }
 
 members_and_queries = [
-    {'member_name': 'Mr. A', 'query': 'SELECT id, first_name FROM passenger'},
-    {'member_name': 'Mr. B', 'query': 'SELECT id, first_name FROM passenger'},
+    {'query': """
+        SELECT ticket.passenger_id_id
+        FROM ticket 
+        JOIN stop ON ticket.trip_id_id = stop.trip_id_id
+        WHERE stop.station_id_id = 10 AND
+        stop.date > '12/31/1999' AND
+        stop.arrival_time >= '08:00:00' AND
+        stop.arrival_time <= '17:00:00';
+    """, 'member_name': 'Get all passengerIDs that have arrived to station 10 after 1999, any time between 8:00 AM to 9:00 PM'},
+    {'member_name': """ Get the top 10 passenger names and amount that have spent more than $12.00 between 31 Jan 2022 and 31 Dec 2022 """, 'query': """ 
+        SELECT Passenger.first_name, Passenger.last_name, SUM(Ticket.fare) as amount 
+        FROM Passenger, Ticket
+        WHERE Passenger.id=Ticket.passenger_id_id AND Ticket.purchase_date > '01/31/2022' AND Ticket.purchase_date <= '12/31/2022'
+        GROUP BY Passenger.id 
+        HAVING SUM(Ticket.fare) > 12.00 
+        ORDER BY SUM(Ticket.fare) DESC LIMIT 10;
+        """ },
 ]
 
 def index(request):
@@ -30,11 +47,29 @@ def reports(request):
 
 # Have to make changes once every member's query is finalized
 def report_details(request, report_number):
-    tb_data = PassengerTable2(Passenger.objects.raw(members_and_queries[report_number-1]['query']))
+    print('resport num')
+    print(type(report_number))
+    res = get_sql_result(members_and_queries[report_number-1]['query'])
+    qs = []
+    if report_number == 1:
+        for tup in res:
+            qs.append(Query1Model(passenger_id=tup[0]))
+        tb_data = Query1Table(qs)
+    elif report_number == 2:
+        for tup in res:
+            qs.append(Query2Model(first_name=tup[0], last_name=tup[1], amount=tup[2]))
+        tb_data = Query2Table(qs)
+            # qs.append()
       # enable sorting
     RequestConfig(request).configure(tb_data)
     tb_data.paginate(page=request.GET.get('page', 1), per_page=10)
     return render(request, 'dbmsops/details.html', {'tb_data': tb_data, 'member_and_query': members_and_queries[report_number-1]})
+
+def get_sql_result(query):
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        row = cursor.fetchall()
+    return row
 
 def data_entry_form(request, table_name):
     table_name = table_name.strip()
