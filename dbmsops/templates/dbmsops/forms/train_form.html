@@ -1,5 +1,44 @@
-<p> {{ tb_schema }}</p>
-<break/>
-<div class="row">
-    <h1>Train</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Input Data</h5>
+        <form class="needs-validation" action="/table/train" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom01">Model</label>
+                    <input type="text" class="form-control" name="Train_model" required>  
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid model name
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom02">Year(mfg.)</label>
+                    <input type="number" min="1800" max="2022" step="1" class="form-control" name="Train_year" required>  
+                    <div id="validationCustom01" class="form-text">Should be inclusive of 1800-2022</div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid train manufacturing year
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mb-3">
+                    <label for="validationCustom03">Type</label>
+                    <input type="text" class="form-control" name="Train_type" required>  
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid type name
+                    </div>
+                </div>
+            </div>
+            <div class="row-auto mt-3">
+                <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+            </div>
+        </form>
+    </div>
 </div>

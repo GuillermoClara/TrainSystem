@@ -1,6 +1,22 @@
-# Train System
+# Train Database Management System
 
-A Train System to perform database operations and view historical run queries.
+A Database designed to solve the problem of the data management in scheduling trains, selling tickets, managing trips, and trains supporting staff (personnel).
+
+This database can be adopted for different use cases related to other modes of transportation with few changes but the most closest one is the bus management system. 
+
+## Entity Relationship(ER) Diagram
+
+<img width="789" alt="ER Diagram" src="dbmsops\static\dbmsops\er_diagram.png">
+
+## Tech Stack
+
+HTML, Python, JavaScript, Bootstrap 5, Django, and PostgreSQL  
+
+## Group Members
+
+McLain Barrett, Ayush Budhwani, Guillermo Clara, Hoan Ngo, James Pham, Joshua Tang, Freddy Velasco 
+
+## Setup Project
 
 ## Prerequisties
 
@@ -8,7 +24,7 @@ A Train System to perform database operations and view historical run queries.
 - Python version >= 3.10.8
 - Pip version >= 22.3
 
-## Setup Instructions
+## Instructions
 
 1. Clone the project using command `git clone https://github.com/joshuahT/TrainSystem/ `
 2. Change directory to navigate inside the trainsystem project: `cd trainsystem/`

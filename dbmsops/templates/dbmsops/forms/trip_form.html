@@ -1,5 +1,60 @@
-<p> {{ tb_schema }}</p>
-<break/>
-<div class="row">
-    <h1>Trip</h1>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title mb-3">Input Data</h5>
+        <form class="needs-validation" action="/table/trip" method="post" novalidate>
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom01">Train ID</label>
+                    <input type="number" class="form-control"
+                        name="Trip_trainID" min="1" max="100" required>  
+                    <div id="validationCustom01" class="form-text">Should be inclusive of 1-100</div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid train ID
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom02">Date</label>
+                    <input type="date" name="Trip_date" class="form-control" 
+                        min="2022-11-24" max="2022-12-12" aria-label="Date" required>                
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please provide a valid date
+                    </div>   
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom03">Distance(in miles)</label>
+                    <input type="number" class="form-control"
+                        name="Trip_distance" min="1" max="1500" required>  
+                    <div id="validationCustom03" class="form-text">Should be inclusive of 1-1500</div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid distance
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-12 mb-3">
+                    <label for="validationCustom03">Duration(in mins)</label>
+                    <input type="number" class="form-control"
+                        name="Trip_duration" min="1" max="1440" required>  
+                    <div id="validationCustom03" class="form-text">Should be inclusive of 1-1440</div>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                    Please provide a valid duration
+                    </div>
+                </div>
+            </div>
+            <div class="row-auto mt-3">
+                <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+            </div>
+        </form>
+    </div>
 </div>

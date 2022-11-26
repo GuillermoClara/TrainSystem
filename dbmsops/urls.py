@@ -5,6 +5,6 @@ app_name = 'dbmsops'
 urlpatterns = [
     path('', views.index, name='index'),
     path('reports/', views.reports, name='reports'),
-    path('reports/details/<int:report_number>', views.details, name='details'),
-    path('ajax/load-data-entry-form/', views.load_data_entry_form, name='load_data_entry_form'),
+    path('reports/details/<int:report_number>', views.report_details, name='report_details'),
+    path('table/<str:table_name>', views.data_entry_form, name='data_entry_form'),
 ]

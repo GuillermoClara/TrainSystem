@@ -1,0 +1,81 @@
+<div class="card">
+    <div class="card-body">
+    <h5 class="card-title mb-3">Input Data</h5>
+    <form class="needs-validation" action="/table/stop" method="post" novalidate>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom01">Station ID</label>
+                <input type="number" class="form-control"
+                    name="Stop_stationID" max="100" min="1" step="1" required>   
+                <div id="validationCustom01" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid station ID
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom02">Trip ID</label>
+                <input type="number" class="form-control"
+                    name="Stop_tripID" max="100" min="1" step="1" required>   
+                <div id="validationCustom02" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid trip ID
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom03">Route Index</label>
+                <input type="number" class="form-control"
+                    name="Stop_routeIndex" max="100" min="1" step="1" required>   
+                <div id="validationCustom03" class="form-text">Should be inclusive of 1-100</div>           
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid route index
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom04">Arrival Time</label>
+                <input type="time" class="form-control"
+                name="Stop_stopArrivalTime" required>              
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                Please provide a valid arrival time
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom05">Departure Time</label>
+                <input type="time" class="form-control"
+                name="Stop_stopDepartureTime" required>              
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                Please provide a valid departure time
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom06">Date</label>
+                <input type="date" name="Stop_date" class="form-control" 
+                    aria-label="Date" required>                
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a date
+                </div>   
+            </div>
+        </div>
+        <div class="row-auto mt-3">
+            <button type="submit" class="btn btn-primary" onclick="validateForm()">Insert Data</button>
+        </div>
+    </form>
+</div>
