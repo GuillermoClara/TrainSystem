@@ -6,7 +6,7 @@ from django_tables2 import RequestConfig
 db_tables = {
     'passenger': {'tb_name': 'Passenger', 'tb_fields':'(ID, firstName, lastName, DoB)', 'passengerTable': PassengerTable, 'passengerModel': Passenger},
     'ticket': {'tb_name': 'Ticket',  'tb_fields':'(ID, passengerID, tripID, purchaseDate, expirationDate, isValid, fare)', 'ticketTable':  TicketTable, 'ticketModel': Ticket},
-    'stop':{'tb_name': 'Stop','tb_fields':'(stopID, stationID, tripID, routeIndex, arrivalTime, departTime)', 'stopTable': StopTable, 'stopModel': Stop},
+    'stop':{'tb_name': 'Stop','tb_fields':'(stopID, stationID, tripID, routeIndex, arrivalTime, departureTime, date)', 'stopTable': StopTable, 'stopModel': Stop},
     'station':{'tb_name': 'Station','tb_fields':'(ID, stationName, builtYear)', 'stationTable': StationTable, 'stationModel': Station},
     'trip':{'tb_name': 'Trip','tb_fields':'(ID, trainID, date, distance, duration)', 'tripTable': TripTable, 'tripModel': Trip},
     'train':{'tb_name': 'Train','tb_fields':'(ID, model, year, type)', 'trainTable': TrainTable, 'trainModel': Train},
@@ -86,7 +86,7 @@ def form_validation_helper(query_set):
                 try:
                     existing_station = Station.objects.get(id=query_set['Stop_stationID'])
                     existing_trip = Trip.objects.get(id=query_set['Stop_tripID'])
-                    new_stop = Stop(station_id=existing_station,route_index=query_set['Stop_routeIndex'],arrival_time=query_set['Stop_stopArrivalTime'],departure_time=query_set['Stop_stopDepartureTime'],trip_id=existing_trip)
+                    new_stop = Stop(station_id=existing_station,route_index=query_set['Stop_routeIndex'],arrival_time=query_set['Stop_stopArrivalTime'],departure_time=query_set['Stop_stopDepartureTime'],trip_id=existing_trip, date=query_set['Stop_date'])
                     try:
                         new_stop.save()
                     except Exception as err:
@@ -157,7 +157,7 @@ def form_validation_helper(query_set):
                     existing_station = Station.objects.get(id=query_set['ScheduledOn_stationID'])
                     existing_trip = Trip.objects.get(id=query_set['ScheduledOn_tripID'])
                     try:
-                        new_scheduledon = ScheduledOn(station_id=existing_station, trip_id=existing_trip, date_time=query_set['Scheduled_dateTime'])
+                        new_scheduledon = ScheduledOn(station_id=existing_station, trip_id=existing_trip, date=query_set['ScheduledOn_date'], time=query_set['Scheduled_time'])
                         new_scheduledon.save()
                     except Exception as err: 
                         error = 'Error: ' + err

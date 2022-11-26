@@ -28,15 +28,26 @@
                     Please provide a valid trip ID
                 </div>
             </div>
-            <div class="col-lg-6 col-sm-12 mb-3">
-                <label for="validationCustom03">Date Time</label>
-                <input type="datetime-local" name="Scheduled_dateTime" class="form-control"
-                    aria-label="Date Time" required>                
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom03">Date</label>
+                <input type="date" name="ScheduledOn_date" class="form-control" 
+                    aria-label="Date" required>                
                 <div class="valid-feedback">
                     Looks good!
                 </div>
                 <div class="invalid-feedback">
-                    Please provide a valid date time
+                    Please provide a date
+                </div>   
+            </div>
+            <div class="col-lg-6 col-sm-12 mb-3">
+                <label for="validationCustom04">Time</label>
+                <input type="time" name="Scheduled_time" class="form-control"
+                    aria-label="Time" required>                
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid time
                 </div>   
             </div>
         </div>

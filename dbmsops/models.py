@@ -75,8 +75,9 @@ class Stop(models.Model):
         db_table = "stop"
     station_id = models.ForeignKey(Station, on_delete=models.CASCADE)
     route_index = models.IntegerField(default=0)
-    arrival_time = models.DateTimeField()
-    departure_time = models.DateTimeField()
+    date = models.DateField()
+    arrival_time = models.TimeField()
+    departure_time = models.TimeField()
     trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
 
 
@@ -98,7 +99,8 @@ class ScheduledOn(models.Model):
         db_table = "scheduledOn"
     station_id = models.ForeignKey(Station, on_delete=models.CASCADE)
     trip_id = models.ForeignKey(Trip, on_delete=models.CASCADE)
-    date_time = models.DateTimeField()
+    date = models.DateField()
+    time = models.TimeField()
 
 
 # DONE

@@ -42,7 +42,7 @@
             </div>
             <div class="col-lg-4 col-sm-12 mb-3">
                 <label for="validationCustom04">Arrival Time</label>
-                <input type="datetime-local" class="form-control"
+                <input type="time" class="form-control"
                 name="Stop_stopArrivalTime" required>              
                 <div class="valid-feedback">
                     Looks good!
@@ -53,7 +53,7 @@
             </div>
             <div class="col-lg-4 col-sm-12 mb-3">
                 <label for="validationCustom05">Departure Time</label>
-                <input type="datetime-local" class="form-control"
+                <input type="time" class="form-control"
                 name="Stop_stopDepartureTime" required>              
                 <div class="valid-feedback">
                     Looks good!
@@ -61,6 +61,17 @@
                 <div class="invalid-feedback">
                 Please provide a valid departure time
                 </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 mb-3">
+                <label for="validationCustom06">Date</label>
+                <input type="date" name="Stop_date" class="form-control" 
+                    aria-label="Date" required>                
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a date
+                </div>   
             </div>
         </div>
         <div class="row-auto mt-3">
