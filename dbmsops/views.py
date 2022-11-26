@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from dbmsops.models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
-from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, Query1Table, Query2Table
-from dbmsops.customQueryModels import Query1Model, Query2Model
+from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, Query1Table, Query2Table, Query3Table, Query4Table
+from dbmsops.customQueryModels import Query1Model, Query2Model, Query3Model, Query4Model
 from django_tables2 import RequestConfig
 from django.db import connection
 
@@ -20,7 +20,8 @@ db_tables = {
 }
 
 members_and_queries = [
-    {'query': """
+    {'query_name': 'Get all passengerIDs that have arrived to station 10 after 1999, any time between 8:00 AM to 9:00 PM.',
+    'query': """
         SELECT ticket.passenger_id_id
         FROM ticket 
         JOIN stop ON ticket.trip_id_id = stop.trip_id_id
@@ -28,8 +29,9 @@ members_and_queries = [
         stop.date > '12/31/1999' AND
         stop.arrival_time >= '08:00:00' AND
         stop.arrival_time <= '17:00:00';
-    """, 'member_name': 'Get all passengerIDs that have arrived to station 10 after 1999, any time between 8:00 AM to 9:00 PM'},
-    {'member_name': """ Get the top 10 passenger names and amount that have spent more than $12.00 between 31 Jan 2022 and 31 Dec 2022 """, 'query': """ 
+    """},
+    {'query_name': 'Get the top 10 passenger names and amount that have spent more than $12.00 between 31 Jan 2022 and 31 Dec 2022.', 
+    'query': """ 
         SELECT Passenger.first_name, Passenger.last_name, SUM(Ticket.fare) as amount 
         FROM Passenger, Ticket
         WHERE Passenger.id=Ticket.passenger_id_id AND Ticket.purchase_date > '01/31/2022' AND Ticket.purchase_date <= '12/31/2022'
@@ -37,6 +39,22 @@ members_and_queries = [
         HAVING SUM(Ticket.fare) > 12.00 
         ORDER BY SUM(Ticket.fare) DESC LIMIT 10;
         """ },
+    {'query_name': 'Find all passengers and their ticketCount having highest number of tickets purchased between 19 Jan 2022 to 24 Aug 2022.', 
+    'query': """ 
+        SELECT Passenger.first_name || ' ' || Passenger.last_name as full_name, COUNT(Ticket.id) as number_of_tickets 
+        FROM Ticket, Passenger 
+        WHERE Ticket.passenger_id_id=Passenger.id AND Ticket.purchase_date > '01-19-2022' AND Ticket.purchase_date < '08-24-2022'
+        GROUP BY Passenger.id 
+        ORDER BY COUNT(Ticket.id) DESC;
+        """ },
+     {'query_name': 'Find all the stations and number of trains sorted in descending order.', 
+    'query': """ 
+        SELECT stat.station_name, COUNT(schon.id) as no_of_trains
+        FROM public."scheduledOn" as schon, Station stat 
+        WHERE schon.station_id_id = stat.id
+        GROUP BY stat.id
+        ORDER BY COUNT(schon.id) DESC;
+        """ }
 ]
 
 def index(request):
@@ -47,8 +65,6 @@ def reports(request):
 
 # Have to make changes once every member's query is finalized
 def report_details(request, report_number):
-    print('resport num')
-    print(type(report_number))
     res = get_sql_result(members_and_queries[report_number-1]['query'])
     qs = []
     if report_number == 1:
@@ -59,7 +75,15 @@ def report_details(request, report_number):
         for tup in res:
             qs.append(Query2Model(first_name=tup[0], last_name=tup[1], amount=tup[2]))
         tb_data = Query2Table(qs)
-            # qs.append()
+    elif report_number == 3:
+        for tup in res:
+            qs.append(Query3Model(full_name=tup[0], no_of_tickets=tup[1]))
+        tb_data = Query3Table(qs)
+    elif report_number == 4:
+        for tup in res:
+            qs.append(Query4Model(station_name=tup[0], no_of_trains=tup[1]))
+        tb_data = Query4Table(qs)
+
       # enable sorting
     RequestConfig(request).configure(tb_data)
     tb_data.paginate(page=request.GET.get('page', 1), per_page=10)
