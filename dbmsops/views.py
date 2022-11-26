@@ -181,25 +181,44 @@ def form_validation_helper(query_set):
                 except Exception as err:
                     error = 'Error: ' + err
             elif key.startswith('PassengerAddress_passengerID'):
+                zip_code = query_set['PassengerAddress_zip']
+                while len(zip_code) < 5:
+                    zip_code = '0' + zip_code 
                 try:
                     existing_passenger = Passenger.objects.get(id=query_set['PassengerAddress_passengerID'])
                     try:
-                        new_passenger_address = PassengerAddress(passenger_id=existing_passenger, street=query_set['PassengerAddress_street'], country=query_set['PassengerAddress_country'], state=query_set['PassengerAddress_state'], city=query_set['PassengerAddress_city'], zip=query_set['PassengerAddress_zip'])
+                        new_passenger_address = PassengerAddress(passenger_id=existing_passenger, street=query_set['PassengerAddress_street'], country=query_set['PassengerAddress_country'], state=query_set['PassengerAddress_state'], city=query_set['PassengerAddress_city'], zip=zip_code)
                         new_passenger_address.save()
                     except Exception as err:
                         error = 'Error: ' + err
                 except Exception as err:
                     error = 'Error: Passenger with ID {passengerID} does not exists'.format(passengerID=query_set['PassengerAddress_passengerID'])
             elif key.startswith('StationAddress_stationID'):
+                zip_code = query_set['StationAddress_zip']
+                station_already_exists = False
+                station_address_already_exists = False
+                while len(zip_code) < 5:
+                    zip_code = '0' + zip_code
+                print(zip_code)
                 try:
                     existing_station = Station.objects.get(id=query_set['StationAddress_stationID'])
-                    try:
-                        new_station_address = StationAddress(station=existing_station, street=query_set['StationAddress_street'], country=query_set['StationAddress_country'], state=query_set['StationAddress_state'], city=query_set['StationAddress_city'], zip=query_set['StationAddress_zip'])
-                        new_station_address.save()
-                    except Exception as err:
-                        error = 'Error: ' + err
+                    station_already_exists = True
+                    StationAddress.objects.get(station=existing_station)
+                    station_address_already_exists = True
+
+                    if station_already_exists == True and station_address_already_exists == True:
+                        error = 'Error: Station with {stationID} already has a address and it cannot have multiple addresses'.format(stationID=query_set['StationAddress_stationID'])
                 except Exception as err:
-                    error = 'Error: Station with ID {stationID} does not exists'.format(stationID=query_set['StationAddress_stationID'])
+                    if station_already_exists == True and station_address_already_exists == False:
+                        try:
+                            new_station_address = StationAddress(station=existing_station, street=query_set['StationAddress_street'], country=query_set['StationAddress_country'], state=query_set['StationAddress_state'], city=query_set['StationAddress_city'], zip=zip_code)
+                            new_station_address.save()
+                        except Exception as err:
+                            error = 'Error: ' + err
+                    elif station_address_already_exists == True:
+                        error = 'Error: Station with {stationID} already has a address and it cannot have multiple addresses'.format(stationID=query_set['StationAddress_stationID'])
+                    else:
+                        error = 'Error: Station with ID {stationID} does not exists'.format(stationID=query_set['StationAddress_stationID'])
             elif key.startswith('WorkRoster_personnelID'):
                 try:
                     existing_personnel = Personnel.objects.get(id=query_set['WorkRoster_personnelID'])
@@ -222,5 +241,4 @@ def form_validation_helper(query_set):
                         error = 'Error: ' + err
                 except Exception as err:
                     error = 'Error: Station with ID of {stationID} does not exists or Trip with ID {tripID} does not exists'.format(stationID=query_set['ScheduledOn_stationID'], tripID=query_set['ScheduledOn_tripID'])
-
     return error
