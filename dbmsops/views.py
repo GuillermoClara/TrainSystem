@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from dbmsops.models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
-from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, Query1Table, Query2Table, Query3Table, Query4Table
-from dbmsops.customQueryModels import Query1Model, Query2Model, Query3Model, Query4Model
+from dbmsops.tables import PassengerTable, TicketTable, StopTable, StationTable, TripTable, TrainTable, PersonnelTable, PassengerAddressTable, StationAddressTable, WorkRosterTable, ScheduledOnTable, Query1Table, Query2Table, Query3Table, Query4Table, Query5Table, Query6Table, Query7Table, Query8Table, Query9Table, Query10Table
+from dbmsops.customQueryModels import Query1Model, Query2Model, Query3Model, Query4Model, Query5Model, Query6Model, Query7Model, Query8Model, Query9Model
 from django_tables2 import RequestConfig
 from django.db import connection
 
@@ -54,7 +54,63 @@ members_and_queries = [
         WHERE so.station_id_id = Station.id
         GROUP BY Station.id
         ORDER BY COUNT(so.id) DESC;
-        """ }
+        """ },
+    {'query_name': 'For all trip ids, find the number of stops for each of those trips.', 
+    'query': """ 
+        SELECT COUNT(stop.id) as no_of_stops, stop.trip_id_id as trip_id
+        FROM stop, trip
+        WHERE stop.trip_id_id = trip.id
+        GROUP BY stop.trip_id_id;
+        """ },
+    {'query_name': 'For train id 4, find the personnel names and their id working on the train from 1 April 2022 to 3 Dec 2022.', 
+    'query': """ 
+        SELECT personnel.first_name || ' ' || personnel.last_name as full_name, personnel.id as personnel_id
+        FROM work_roster, personnel 
+        WHERE train_id_id = 4 AND personnel.id = work_roster.personnel_id_id 
+            AND work_roster.work_date >= '04-01-2022' AND work_roster.work_date <= '12-03-2022'
+        Group BY work_roster.train_id_id, personnel.id;
+        """ },
+    {'query_name': 'Get the number of passengers that have traveled to a station in Georgia.', 
+    'query': """ 
+        SELECT COUNT(*) as no_of_passengers
+        FROM ticket, trip
+        WHERE trip.id = ticket.trip_id_id
+        AND trip.id IN (
+            SELECT trip.id
+            FROM trip, stop, station_address
+            WHERE stop.trip_id_id = trip.id
+            AND stop.station_id_id = station_address.station_id
+            AND station_address.state = 'Georgia'
+        );
+        """ },
+    {'query_name': 'Find the passengers that have traveled on a train in the same state that they live in.', 
+    'query': """ 
+        SELECT distinct passenger.id as passenger_id, passenger_address.state
+        FROM ticket, passenger, trip, stop, passenger_address, station_address
+        WHERE ticket.passenger_id_id = passenger.id
+        AND station_address.station_id = stop.station_id_id
+        AND ticket.trip_id_id = trip.id
+        AND stop.trip_id_id = trip.id
+        AND passenger_address.passenger_id_id = passenger.id
+        AND passenger_address.state = station_address.state;
+        """ },
+    {'query_name': 'Find the top ten trains that has been worked on the most. Return train id and the number of workers that have worked on that train.', 
+    'query': """ 
+        SELECT train.id as train_id, COUNT (work_roster.personnel_id_id) as number_of_workers
+        FROM train, work_roster, personnel
+        WHERE train.id = work_roster.train_id_id
+        AND work_roster.personnel_id_id = personnel.id
+        GROUP BY train.id
+        ORDER BY COUNT(work_roster.personnel_id_id) DESC
+        LIMIT 10;
+        """ },
+    {'query_name': 'Find all passengers living in New York City.', 
+    'query': """ 
+        SELECT Passenger.first_name || ' ' || Passenger.last_name as full_name
+        FROM Passenger, passenger_address
+        WHERE Passenger.id = passenger_address.passenger_id_id AND passenger_address.city = 'New York City'
+        GROUP BY Passenger.id;
+        """ },
 ]
 
 def index(request):
@@ -83,6 +139,34 @@ def report_details(request, report_number):
         for tup in res:
             qs.append(Query4Model(station_name=tup[0], no_of_trains=tup[1]))
         tb_data = Query4Table(qs)
+    elif report_number == 5:
+        for tup in res:
+            qs.append(Query5Model(no_of_stops=tup[0], trip_id=tup[1]))
+        tb_data = Query5Table(qs)
+    elif report_number == 6:
+        for tup in res:
+            qs.append(Query6Model(full_name=tup[0], personnel_id=tup[1]))
+        tb_data = Query6Table(qs)
+    elif report_number == 6:
+        for tup in res:
+            qs.append(Query7Model(no_of_passengers=tup[0]))
+        tb_data = Query7Table(qs)
+    elif report_number == 7:
+        for tup in res:
+            qs.append(Query7Model(no_of_passengers=tup[0]))
+        tb_data = Query7Table(qs)
+    elif report_number == 8:
+        for tup in res:
+            qs.append(Query8Model(passenger_id=tup[0], state=tup[1]))
+        tb_data = Query8Table(qs)
+    elif report_number == 9:
+        for tup in res:
+            qs.append(Query9Model(train_id=tup[0], number_of_workers=tup[1]))
+        tb_data = Query9Table(qs)
+    elif report_number == 10:
+        for tup in res:
+            qs.append(Query3Model(full_name=tup[0]))
+        tb_data = Query10Table(qs)
 
       # enable sorting
     RequestConfig(request).configure(tb_data)
