@@ -24,10 +24,6 @@ class Query6Model(models.Model):
     full_name = models.IntegerField()
     personnel_id = models.IntegerField()
 
-class Query6Model(models.Model):
-    full_name = models.IntegerField()
-    personnel_id = models.IntegerField()
-
 class Query7Model(models.Model):
     no_of_passengers = models.IntegerField()
 
