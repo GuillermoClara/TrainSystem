@@ -1,6 +1,6 @@
 import django_tables2 as tables
 from .models import Passenger, Ticket, Stop, Station, Trip, Train, Personnel, PassengerAddress, StationAddress, WorkRoster, ScheduledOn
-from dbmsops.customQueryModels import Query1Model, Query2Model, Query3Model, Query4Model
+from dbmsops.customQueryModels import Query1Model, Query2Model, Query3Model, Query4Model, Query5Model, Query6Model, Query7Model, Query8Model, Query9Model
 
 class PassengerTable(tables.Table):
     class Meta:
@@ -87,4 +87,40 @@ class Query4Table(tables.Table):
     class Meta:
         model = Query4Model
         fields = ("station_name", "no_of_trains",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query5Table(tables.Table):
+    class Meta:
+        model = Query5Model
+        fields = ("no_of_stops", "trip_id",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query6Table(tables.Table):
+    class Meta:
+        model = Query6Model
+        fields = ("full_name", "personnel_id",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query7Table(tables.Table):
+    class Meta:
+        model = Query7Model
+        fields = ("no_of_passengers",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query8Table(tables.Table):
+    class Meta:
+        model = Query8Model
+        fields = ("passenger_id", "state",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+
+class Query9Table(tables.Table):
+    class Meta:
+        model = Query9Model
+        fields = ("train_id", "number_of_workers",)
+        attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
+        
+class Query10Table(tables.Table):
+    class Meta:
+        model = Query3Model
+        fields = ("full_name",)
         attrs = {"class": "table table-container table-hover", "thead": {"class": "table-primary"}}
