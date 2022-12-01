@@ -26,7 +26,7 @@ McLain Barrett, Ayush Budhwani, Guillermo Clara, Hoan Ngo, James Pham, Joshua Ta
 
 ## Setup Project
 
-## Prerequisties
+## Prerequisites
 
 - Git version >= 2.37.0
 - Python version >= 3.10.8
