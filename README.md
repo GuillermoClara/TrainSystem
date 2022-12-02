@@ -6,9 +6,9 @@ This database can be adopted for different use cases related to other modes of t
 
 ## Entity Relationship(ER) Diagram
 
-<img width="789" alt="ER Diagram Image" src="https://i.imgur.com/ssOdlrm.png">
+<img width="789" alt="ER Diagram Image" src="https://i.imgur.com/F9fDmeP.png">
 
-Figma Diagram Link: https://www.figma.com/file/cfMnzxmFjAgqgmChANHgAL/Train-System---ER-Diagram?node-id=0%3A1&t=9jiLNaEfXiWYtggF-1
+Figma Diagram Link: https://www.figma.com/file/ZRRgenXlwvHCWJBwiLe5V0/Train-System---ER-Diagram-(Copy)?node-id=0%3A1&t=P0VamMKyzHIq5dwq-1
 
 ## Relational Model
 
