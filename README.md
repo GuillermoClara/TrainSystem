@@ -1,6 +1,8 @@
 # :steam_locomotive: Train Database Management System
 
-A Database designed to solve the problem of the data management in scheduling trains, selling tickets, managing trips, and trains supporting staff (personnel). This database can be adopted for different use cases related to other modes of transportation with few changes but the most closest one is the bus management system. 
+A Frontend web UI that interacts with database to perform data insert operation by keeping referential integrity constraints intact and displays select queries in a tabular format.
+
+This Web UI is part of a train database project designed to solve the problem of the data management in scheduling trains, selling tickets, managing trips, and trains supporting staff (personnel). This database can be adopted for different use cases related to other modes of transportation with few changes but the most closest one is the bus management system. 
 
 ## Problem Statement
 
